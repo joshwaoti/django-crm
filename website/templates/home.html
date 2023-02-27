@@ -5,6 +5,29 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Home</h1>
+<div class="col-md-6 offset-md-3">
+
+    {% if user.is_authenticated %}
+      
+    <h1>Home Welcome</h1>
+    {% else %}
+    <h1>Login</h1>
+    <br>
+    <form method="POST" action="{% url 'home' %}">
+        {% csrf_token %}
+        <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" aria-describedby="emailHelp", name="username", placeholder="e.g John Doe", required>
+            </div>
+            <div class="mb-3">
+              <input type="password" class="form-control"  required, name="password", placeholder="Enter Password">
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-secondary">Submit</button>
+          </form>
+    </form>
+    {% endif %}
+</div>
 {% endblock content %}
     
