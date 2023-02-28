@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm
 from .models import Record
@@ -64,4 +65,16 @@ def register_user(request):
 
 	return render(request, 'register.html', {'form':form})
      
-          
+
+
+def customer_record(request, pk):
+    if request.user.is_authenticated:
+        customer_record = Record.objects.get(id=pk)
+
+    else:
+        messages.warning(request, 'You are not logged in')
+        return redirect('home')
+      
+    return render(request, 'record.html', context = {
+            'customer_record' : customer_record,
+      })

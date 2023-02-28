@@ -9,7 +9,7 @@
     {% if user.is_authenticated %}
       
     <h1>Welcome {{request.user.first_name}}</h1>
-      <table class="table table-dark table-striped table-hover">
+      <table class="table table-dark table-striped table-hover table-bordered">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -29,7 +29,7 @@
     
             {% for record in records %}
             <tr>
-              <td>{{record.id}}</td> 
+              <td> <a href="{% url 'record' record.id %}"> {{record.id}}</a></td> 
               <td>{{record.first_name}} 
               {{record.last_name}}</td> 
               <td>{{record.email}}</td> 
@@ -48,22 +48,24 @@
 
 
     {% else %}
-    <h1>Login</h1>
-    <br>
-    <form method="POST" action="{% url 'home' %}">
-        {% csrf_token %}
-        
-            <div class="mb-3">
-              <input type="text" class="form-control" aria-describedby="emailHelp", name="username", placeholder="e.g John Doe", required>
-            </div>
-            <div class="mb-3">
-              <input type="password" class="form-control"  required, name="password", placeholder="Enter Password">
-            </div>
-
-            <br>
-            <button type="submit" class="btn btn-secondary">Login</button>
+    <div class="col-md-6 offset-md-3">
+      <h1>Login</h1>
+      <br>
+      <form method="POST" action="{% url 'home' %}">
+          {% csrf_token %}
           
-    </form>
+              <div class="mb-3">
+                <input type="text" class="form-control" aria-describedby="emailHelp", name="username", placeholder="e.g John Doe", required>
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control"  required, name="password", placeholder="Enter Password">
+              </div>
+
+              <br>
+              <button type="submit" class="btn btn-secondary">Login</button>
+            
+      </form>
+    </div>
     {% endif %}
 {% endblock content %}
     
